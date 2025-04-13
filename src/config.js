@@ -1,0 +1,1 @@
+export const tokenSecret = 'some secret key'
