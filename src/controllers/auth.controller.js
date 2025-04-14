@@ -1,6 +1,8 @@
 import user from "../models/user.model.js";
 import byCrypt from "bcryptjs";
 import createAccessToken from "../libs/jwt.js";
+import jwt from "jsonwebtoken";
+import { tokenSecret } from "../config.js";
 
 
 
@@ -8,8 +10,8 @@ export const register = async (req, res) => {
     const { email, password, username } = req.body
     try {
 
-      const userFound = await user.findOne({email})
-      if(userFound) return res.status(400).json(['The email is already in use'])
+        const userFound = await user.findOne({ email })
+        if (userFound) return res.status(400).json(['The email is already in use'])
 
 
         const passwordHash = await byCrypt.hash(password, 10)
@@ -99,4 +101,22 @@ export const profile = async (req, res) => {
     })
 
 
+}
+
+export const verifyToken = async (req, res) => {
+    const { token } = req.cookies
+    if (!token) return res.status(401).json({ message: 'Unauthorized' })
+
+    jwt.verify(token, tokenSecret, async (err, User) => {
+        if (err) return res.status(401).json({ message: 'Unauthorized' })
+
+        const userFound = await user.findById(User.id)
+        if (!userFound) return res.status(401).json({ message: 'Unauthorized' })
+
+        return res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email  
+        })
+    })
 }

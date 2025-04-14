@@ -7,7 +7,7 @@ export const LoginPages = () => {
   const { register, handleSubmit, formState: {
     errors
   } } = useForm()
-  const { signIn, errors: signInErrors } = useAuth()
+  const { signIn, errors: signInErrors} = useAuth()
 
   const onSubmit = handleSubmit((data) => {
     signIn(data)
@@ -18,7 +18,7 @@ export const LoginPages = () => {
     <div className="flex h-calc[(100vh-100px)] items-center justify-center">
 
       <div className="bg-zinc-800 max-w-md w-full p10 m-10 rounded-md">
-        {signInErrors?.map((error, i) => (
+        {signInErrors.map((error, i) => (
           <div className="bg-red-500 p-2" key={i}>
             {error}
           </div>
