@@ -5,6 +5,7 @@ export const getTasks = async (req, res) => {
         user: req.user.id
     }).populate('user')
     res.json(tasks)
+    console.log(req.user.id)
 
 
 }
