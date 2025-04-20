@@ -64,6 +64,40 @@ export const AuthProvider = ({ children }) => {
         }
     }, [errors])
 
+    useEffect(() => {
+
+        async function checkLogin() {
+
+            const cookies = Cookie.get()
+
+            if (!cookies.token) {
+                setisAuthenticated(false)
+                setloading(false)
+                return setuser(null)
+            }
+                try {
+                    const res = await verifyTokenRequest(cookies.token)
+                    if (!res.data){
+                        setisAuthenticated(false)
+                        setloading(false)    
+                        return
+
+                    }
+                    setisAuthenticated(true)
+                    setuser(res.data)
+                    setloading(false)
+                } catch (error) {
+                    console.log(error)
+                    setisAuthenticated(false)
+                    setuser(null)
+                    setloading(false)
+                }
+
+        }
+        checkLogin()
+
+    }, [])
+
 
     
 

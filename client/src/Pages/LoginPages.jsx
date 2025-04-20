@@ -8,8 +8,12 @@ export const LoginPages = () => {
   const { register, handleSubmit, formState: {
     errors
   } } = useForm()
+
   const { signIn, errors: signInErrors, isAuthenticated} = useAuth()
   const navigate = useNavigate()
+
+
+
 
   const onSubmit = handleSubmit((data) => {
     signIn(data)
