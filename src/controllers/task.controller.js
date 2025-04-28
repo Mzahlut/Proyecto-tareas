@@ -11,11 +11,10 @@ export const getTasks = async (req, res) => {
 }
 
 export const createTask = async (req, res) => {
-    const { title, description, date } = req.body
+    const { title, description } = req.body
     const newTask = new task({
         title,
         description,
-        date,
         user: req.user.id
     })
 

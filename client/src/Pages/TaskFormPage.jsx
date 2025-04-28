@@ -23,13 +23,14 @@ export const TaskFormPage = () => {
   }, [])
 
   const onSubmit = handleSubmit((data) => {
+    console.log(data)
     if(params.id){
       updateTask(params.id, data)
 
     }else{
       createTasks(data)
     }
-    navigate('/tasks')
+    navigate('/tasks')  
   })
 
   return (
@@ -47,8 +48,6 @@ export const TaskFormPage = () => {
           autoFocus
           className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
         ></textarea>
-        <label htmlFor="date">Date</label>
-        <input type="date" {...register('date')} className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"/>
         <button className="bg-indigo-500 px-3 py-2 rounded-md">
           Save
         </button>

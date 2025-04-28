@@ -19,10 +19,17 @@ export function TaskProvider({ children }) {
     const [tasks, setTasks] = useState([])
 
     const createTasks = async (task) => {
-        const res = await createTaskRequest(task)
-        console.log(res)
-
+       try {
+           const res = await createTaskRequest(task)
+           console.log(res)
+        
+       } catch (error) {
+        console.log(error)
+       }
+       
     }
+
+
     const loadTasks = async () => {
         try {
             const res = await getTasksRequest()
